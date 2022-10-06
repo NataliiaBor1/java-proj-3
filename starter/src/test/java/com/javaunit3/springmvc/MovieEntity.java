@@ -1,13 +1,10 @@
-package com.javaunit3.springmvc.model;
+package com.javaunit3.springmvc;
 
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.springframework.context.annotation.Primary;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import java.util.List;
 
 @Entity
 @Table(name = "movies")
@@ -27,8 +24,13 @@ public class MovieEntity {
     @Column(name = "genre")
     private String genre;
 
-//    public MovieEntity (){
-//    };
+    @OneToMany
+    @JoinColumn (name = "movie_id")
+    private List<VoteEntity> votes;
+
+    public MovieEntity() {
+    }
+
 
     public String getMaturityRating() {
         return maturityRating;
@@ -60,5 +62,17 @@ public class MovieEntity {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public List<VoteEntity> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<VoteEntity> votes) {
+        this.votes = votes;
+    }
+
+    public void addVote(VoteEntity newVote) {
+        votes.add(newVote);
     }
 }
