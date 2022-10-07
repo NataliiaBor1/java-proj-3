@@ -1,9 +1,11 @@
 package com.javaunit3.springmvc;
 
+import com.javaunit3.springmvc.model.MovieEntity;
+import com.javaunit3.springmvc.model.VoteEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-@Component
+@Controller
 public class MovieController {
 
     @Autowired
@@ -29,7 +31,7 @@ public class MovieController {
 
     @RequestMapping("/bestMovie")
     public String getBestMoviePage(Model model) {
-//        model.addAttribute("BestMovie", com.javaunit3.springmvc.BestMovieService.getBestMovie().getTitle());
+//        model.addAttribute("bestMovie", com.javaunit3.springmvc.BestMovieService.getBestMovie().getTitle());
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
 
@@ -96,14 +98,14 @@ public class MovieController {
     @RequestMapping("/addMovie")
     public String addMovie(HttpServletRequest request) {
 
-        request.getParameter("movieTitle");
-        request.getParameter("maturityRating");
-        request.getParameter("genre");
+        String movieTitle = request.getParameter("movieTitle");
+        String maturityRating = request.getParameter("maturityRating");
+        String genre = request.getParameter("genre");
 
         MovieEntity movieEntity = new MovieEntity();
-        movieEntity.setTitle(request.getParameter("movieTitle"));
-        movieEntity.setMaturityRating(request.getParameter("maturityRating"));
-        movieEntity.setGenre(request.getParameter("genre"));
+        movieEntity.setTitle(movieTitle);
+        movieEntity.setMaturityRating(maturityRating);
+        movieEntity.setGenre(genre);
 
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
@@ -112,5 +114,4 @@ public class MovieController {
 
         return "addMovie";
     }
-
 }

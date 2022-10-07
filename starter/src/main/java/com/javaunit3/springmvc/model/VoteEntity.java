@@ -1,4 +1,4 @@
-package com.javaunit3.springmvc;
+package com.javaunit3.springmvc.model;
 
 import org.springframework.stereotype.Component;
 
@@ -12,10 +12,8 @@ public class VoteEntity {
     @GeneratedValue
     private Integer id;
 
-    @Column
+    @Column (name = "voter_Name")
     private String voterName;
-
-
 
     public Integer getId() {
         return id;

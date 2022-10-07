@@ -1,9 +1,6 @@
-package com.javaunit3.springmvc;
+package com.javaunit3.springmvc.model;
 
 import javax.persistence.*;
-
-import org.springframework.context.annotation.Primary;
-
 import java.util.List;
 
 @Entity
@@ -24,13 +21,12 @@ public class MovieEntity {
     @Column(name = "genre")
     private String genre;
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn (name = "movie_id")
     private List<VoteEntity> votes;
 
     public MovieEntity() {
     }
-
 
     public String getMaturityRating() {
         return maturityRating;
@@ -73,6 +69,6 @@ public class MovieEntity {
     }
 
     public void addVote(VoteEntity newVote) {
-        votes.add(newVote);
+        this.votes.add(newVote);
     }
 }
